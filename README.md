@@ -142,13 +142,13 @@ Custom `data_audit()` function generates structured dataset diagnostics.
 
 Replaced invalid placeholders:
 
-"", "unknown", "invalid", "N/A"
+`"", "unknown", "invalid", "N/A"`
 
 → Converted to NaN
 
 2️⃣ **Remove Duplicate Patients**
 
-drop_duplicates(subset="Patient_ID")
+`drop_duplicates(subset="Patient_ID")`
 
 3️⃣ **Normalize String Columns**
 
@@ -162,7 +162,7 @@ drop_duplicates(subset="Patient_ID")
 
 Safe numeric conversion using:
 
-pd.to_numeric(errors="coerce")
+`pd.to_numeric(errors="coerce")`
 
 5️⃣ **Medical Range Validation**
 
@@ -220,9 +220,9 @@ Billing_Amount
 
 ## Technical Stack
 
-- V S Code
+- Python
 
-- pandas
+- Pandas
 
 - NumPy
 
@@ -253,7 +253,7 @@ Billing_Amount
 healthcare-data-cleaning/
 │
 ├── data/
-│   └── messy_healthcare_dataset_150k.csv
+│   └── Healthcare_dataset.csv
 │
 ├── notebooks/
 │   └── healthcare_cleaning.ipynb
