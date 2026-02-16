@@ -144,7 +144,7 @@ Replaced invalid placeholders:
 
 `"", "unknown", "invalid", "N/A"`
 
-→ Converted to NaN
+- Converted to NaN
 
 2️⃣ **Remove Duplicate Patients**
 
