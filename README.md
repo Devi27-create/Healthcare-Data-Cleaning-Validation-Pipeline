@@ -1,68 +1,71 @@
-🏥 Healthcare Data Cleaning & Validation Pipeline
+# Healthcare Data Cleaning & Validation Pipeline
 
 Production-style healthcare data audit and cleaning workflow built using Python and pandas.
 
-📌 Project Overview
+## Project Overview
 
 This project demonstrates a real-world healthcare data cleaning pipeline applied to a messy synthetic dataset containing 150,000+ patient records.
 
 The dataset intentionally includes:
 
-Missing values (NaN, None, empty strings)
+- Missing values (NaN, None, empty strings)
 
-Inconsistent categorical labels
+- Inconsistent categorical labels
 
-Mixed data types
+- Mixed data types
 
-Out-of-range medical values
+- Out-of-range medical values
 
-Duplicate patient records
+- Duplicate patient records
 
-Mixed date formats
+- Mixed date formats
 
-Whitespace issues
+- Whitespace issues
 
-Invalid blood pressure formats
+- Invalid blood pressure formats
 
-Extreme billing outliers
+- Extreme billing outliers
 
 The objective is to simulate a production-level ETL (Extract, Transform, Load) data preparation workflow used in:
 
-Hospital EHR systems
+- Hospital EHR systems
 
-Insurance analytics
+- Insurance analytics
 
-Healthcare BI platforms
+- Healthcare BI platforms
 
-Clinical ML pipelines
+- Clinical ML pipelines
 
-📂 Dataset
+📂 **Dataset**
 
 Input File
 
 messy_healthcare_dataset_150k.csv
 
 
-Columns
+## Columns
 
-Column	Description
-Patient_ID	Unique patient identifier
-Age	Patient age
-Gender	Gender category
-Height_cm	Height in centimeters
-Weight_kg	Weight in kilograms
-BMI	Provided BMI
-Blood_Pressure	Systolic/Diastolic format
-Heart_Rate	Beats per minute
-Cholesterol	mg/dL
-Diabetes	Yes/No indicator
-Smoking_Status	Smoking category
-Admission_Date	Hospital admission date
-Discharge_Date	Discharge date
-Hospital	Hospital name
-Billing_Amount	Total billing
-🏗️ Project Architecture
-🔷 High-Level Data Flow
+| Column         | Description               |
+| -------------- | ------------------------- |
+| Patient_ID     | Unique patient identifier |
+| Age            | Patient age               |
+| Gender         | Gender category           |
+| Height_cm      | Height in centimeters     |
+| Weight_kg      | Weight in kilograms       |
+| BMI            | Provided BMI              |
+| Blood_Pressure | Systolic/Diastolic format |
+| Heart_Rate     | Beats per minute          |
+| Cholesterol    | mg/dL                     |
+| Diabetes       | Yes/No indicator          |
+| Smoking_Status | Smoking category          |
+| Admission_Date | Hospital admission date   |
+| Discharge_Date | Discharge date            |
+| Hospital       | Hospital name             |
+| Billing_Amount | Total billing             |
+
+##  Project Architecture
+
+Data Flow
                 ┌──────────────────────────┐
                 │  Raw Healthcare Dataset  │
                 │ (150K+ messy records)    │
@@ -107,140 +110,145 @@ Billing_Amount	Total billing
                 │  Clean, ML-Ready Dataset │
                 └──────────────────────────┘
 
-🧹 Data Cleaning Pipeline
-🔍 Phase 1 — Data Audit
+## Data Cleaning Pipeline
+### Phase 1 — Data Audit
 
-Performed comprehensive validation:
+- Performed comprehensive validation:
 
-Null counts & percentages
+- Null counts & percentages
 
-Empty string detection
+- Empty string detection
 
-Whitespace validation
+- Whitespace validation
 
-Mixed dtype inspection
+- Mixed dtype inspection
 
-Non-numeric detection
+- Non-numeric detection
 
-Categorical variation analysis
+- Categorical variation analysis
 
-Date format validation
+- Date format validation
 
-Duplicate detection
+- Duplicate detection
 
-Out-of-range medical values
+- Out-of-range medical values
 
-Custom data_audit() function generates structured dataset diagnostics.
+Custom `data_audit()` function generates structured dataset diagnostics.
 
-🧽 Phase 2 — Cleaning & Standardization
-1️⃣ Standardize Missing Values
+## Phase 2 — Cleaning & Standardization
+
+1️⃣ **Standardize Missing Values**
 
 Replaced invalid placeholders:
 
 "", "unknown", "invalid", "N/A"
 
-
 → Converted to NaN
 
-2️⃣ Remove Duplicate Patients
+2️⃣ **Remove Duplicate Patients**
+
 drop_duplicates(subset="Patient_ID")
 
-3️⃣ Normalize String Columns
+3️⃣ **Normalize String Columns**
 
-Trim whitespace
+- Trim whitespace
 
-Convert to lowercase
+- Convert to lowercase
 
-Standardize categorical labels
+- Standardize categorical labels
 
-4️⃣ Fix Data Types
+4️⃣ **Fix Data Types**
 
 Safe numeric conversion using:
 
 pd.to_numeric(errors="coerce")
 
-5️⃣ Medical Range Validation
-Field	Valid Range
-Age	0–120
-Height	100–250 cm
-Weight	30–300 kg
-Heart Rate	30–220 bpm
-Cholesterol	100–400 mg/dL
-Systolic BP	70–250
-Diastolic BP	40–150
+5️⃣ **Medical Range Validation**
 
-Invalid values → converted to NaN
+| Field        | Valid Range   |
+| ------------ | ------------- |
+| Age          | 0–120         |
+| Height       | 100–250 cm    |
+| Weight       | 30–300 kg     |
+| Heart Rate   | 30–220 bpm    |
+| Cholesterol  | 100–400 mg/dL |
+| Systolic BP  | 70–250        |
+| Diastolic BP | 40–150        |
 
-6️⃣ Date Parsing & Logical Validation
+Invalid values → converted to `NaN`
 
-Mixed format handling
+6️⃣ **Date Parsing & Logical Validation**
 
-Invalid date coercion
+- Mixed format handling
 
-Ensured Discharge ≥ Admission
+- Invalid date coercion
 
-7️⃣ Feature Engineering
+- Ensured Discharge ≥ Admission
 
-Recalculated BMI from height & weight
+7️⃣ **Feature Engineering**
 
-Split Blood Pressure into Systolic/Diastolic
+- Recalculated BMI from height & weight
 
-8️⃣ Missing Value Imputation
-Type	Strategy
-Numeric	Median
-Categorical	Mode
-9️⃣ Outlier Handling (IQR Method)
+- Split Blood Pressure into Systolic/Diastolic
+
+8️⃣ **Missing Value Imputation**
+| Type        | Strategy |
+| ----------- | -------- |
+| Numeric     | Median   |
+| Categorical | Mode     |
+
+9️⃣ **Outlier Handling (IQR Method)**
 
 Applied IQR filtering to:
 
 Billing_Amount
 
+## Removed extreme financial outliers.
 
-Removed extreme financial outliers.
+**Final Dataset Quality Checks**
 
-📊 Final Dataset Quality Checks
+- `df.describe()`
 
-df.describe()
+- `df.info()`
 
-df.info()
+- Null validation
 
-Null validation
+- Shape verification
 
-Shape verification
+- Statistical distribution inspection
 
-Statistical distribution inspection
+## Technical Stack
 
-🧠 Technical Stack
+- V S Code
 
-Python 3.x
+- pandas
 
-pandas
+- NumPy
 
-NumPy
+## Skills Demonstrated
 
-💼 Skills Demonstrated
+- Data Profiling
 
-Data Profiling
+- ETL Pipeline Design
 
-ETL Pipeline Design
+- Data Quality Validation
 
-Data Quality Validation
+- Healthcare Domain Validation Rules
 
-Healthcare Domain Validation Rules
+- Outlier Detection (IQR)
 
-Outlier Detection (IQR)
+- Feature Engineering
 
-Feature Engineering
+- Defensive Pandas Programming
 
-Defensive Pandas Programming
+- Mixed Date Format Handling
 
-Mixed Date Format Handling
+- Chained Assignment Handling
 
-Chained Assignment Handling
+- Schema Consistency Debugging
 
-Schema Consistency Debugging
+## Recommended Repository Structure
 
-📁 Recommended Repository Structure
 healthcare-data-cleaning/
 │
 ├── data/
@@ -255,37 +263,37 @@ healthcare-data-cleaning/
 ├── README.md
 └── requirements.txt
 
-🚀 Future Improvements
+## Future Improvements
 
-Automated Data Quality Score
+- Automated Data Quality Score
 
-Validation Rule Engine
+- Validation Rule Engine
 
-Logging & Exception Handling
+- Logging & Exception Handling
 
-Sklearn-style preprocessing pipeline
+- Sklearn-style preprocessing pipeline
 
-Unit tests for validation logic
+- Unit tests for validation logic
 
-CI/CD integration
+- CI/CD integration
 
-Performance optimization for 1M+ rows
+- Performance optimization for 1M+ rows
 
-🏥 Real-World Application
+## Real-World Application
 
 This workflow mirrors cleaning processes used in:
 
-Electronic Health Record (EHR) systems
+- Electronic Health Record (EHR) systems
 
-Healthcare analytics platforms
+- Healthcare analytics platforms
 
-Insurance fraud detection systems
+- Insurance fraud detection systems
 
-Clinical risk prediction models
+- Clinical risk prediction models
 
-Healthcare BI dashboards
+- Healthcare BI dashboards
 
-📌 Author
+## Author
 
 Healthcare Data Cleaning Project
 Built for mastering real-world messy data handling.
