@@ -65,7 +65,8 @@ messy_healthcare_dataset_150k.csv
 
 ##  Project Architecture
 
-Data Flow
+**Data Flow**
+
                 ┌──────────────────────────┐
                 │  Raw Healthcare Dataset  │
                 │ (150K+ messy records)    │
