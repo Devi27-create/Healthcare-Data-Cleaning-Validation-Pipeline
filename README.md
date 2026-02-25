@@ -1,224 +1,227 @@
 # Healthcare Data Cleaning & Validation Pipeline
 
-Production-style healthcare data audit and cleaning workflow built using Python and pandas.
+A production-style healthcare data preprocessing pipeline designed to clean, validate, standardize, and transform a messy synthetic dataset of 150,000+ patient records into a clean, ML-ready dataset.
+
+This project demonstrates real-world data engineering practices including schema validation, profiling, rule enforcement, outlier handling, feature engineering, and final quality validation.
 
 ## Project Overview
 
-This project demonstrates a real-world healthcare data cleaning pipeline applied to a messy synthetic dataset containing 150,000+ patient records.
+Raw healthcare datasets are often:
 
-The dataset intentionally includes:
+- Inconsistent
 
-- Missing values (NaN, None, empty strings)
+- Contain missing values
+
+- Have mixed data types
+
+- Include outliers
+
+- Contain duplicate records
+
+- Have inconsistent categorical formats
+
+- Contain invalid date logic
+
+This project builds a structured, multi-phase cleaning architecture to transform messy healthcare data into trusted analytical data.
+
+## Architecture
+
+Healthcare Data Cleaning Architecture
+
+![Healthcare Data Architecture]()
+
+
+## Pipeline Flow
+
+Data Ingestion
+      ↓
+Schema Validation
+      ↓
+Data Profiling
+      ↓
+Validation Rules
+      ↓
+Data Cleaning
+      ↓
+Outlier Handling
+      ↓
+Feature Engineering
+      ↓
+Final Data Validation
+      ↓
+Analytics & ML Ready Dataset
+
+
+## Dataset Description
+
+Synthetic dataset with 150,000+ patient records including:
+
+- Patient_ID
+
+- Age
+
+- Gender
+
+- Height_cm
+
+- Weight_kg
+
+- BMI
+
+- Blood_Pressure
+
+- Heart_Rate
+
+- Cholesterol
+
+- Diabetes
+
+- Smoking_Status
+
+- Admission_Date
+
+- Discharge_Date
+
+- Hospital
+
+- Billing_Amount
+
+The dataset intentionally contains:
+
+- Null values
+
+- Mixed formats
+
+- Duplicates
+
+- Outliers
 
 - Inconsistent categorical labels
 
-- Mixed data types
-
-- Out-of-range medical values
-
-- Duplicate patient records
-
 - Mixed date formats
 
-- Whitespace issues
-
-- Invalid blood pressure formats
-
-- Extreme billing outliers
-
-The objective is to simulate a production-level ETL (Extract, Transform, Load) data preparation workflow used in:
-
-- Hospital EHR systems
-
-- Insurance analytics
-
-- Healthcare BI platforms
-
-- Clinical ML pipelines
-
-**Dataset**
-
-Input File
-
-[Healthcare_Dataset.csv](https://github.com/Devi27-create/Healthcare-Data-Cleaning-Validation-Pipeline/blob/main/Healthcare_Dataset.csv)
+- Invalid medical ranges
 
 
-## Columns
+## Pipeline Stages
 
-| Column         | Description               |
-| -------------- | ------------------------- |
-| Patient_ID     | Unique patient identifier |
-| Age            | Patient age               |
-| Gender         | Gender category           |
-| Height_cm      | Height in centimeters     |
-| Weight_kg      | Weight in kilograms       |
-| BMI            | Provided BMI              |
-| Blood_Pressure | Systolic/Diastolic format |
-| Heart_Rate     | Beats per minute          |
-| Cholesterol    | mg/dL                     |
-| Diabetes       | Yes/No indicator          |
-| Smoking_Status | Smoking category          |
-| Admission_Date | Hospital admission date   |
-| Discharge_Date | Discharge date            |
-| Hospital       | Hospital name             |
-| Billing_Amount | Total billing             |
+**1️⃣ Schema Validation**
 
-##  Project Architecture
+- Ensures structural correctness before processing.
 
-**Data Flow**
+- Required columns check
 
-                ┌──────────────────────────┐
-                │  Raw Healthcare Dataset  │
-                │ (150K+ messy records)    │
-                └──────────────┬───────────┘
-                               │
-                               ▼
-                ┌──────────────────────────┐
-                │  Phase 1: Data Audit     │
-                │  - Null detection        │
-                │  - Type validation       │
-                │  - Range checks          │
-                │  - Date inspection       │
-                │  - Categorical preview   │
-                └──────────────┬───────────┘
-                               │
-                               ▼
-                ┌──────────────────────────┐
-                │  Phase 2: Cleaning       │
-                │  - Standardize nulls     │
-                │  - Remove duplicates     │
-                │  - Fix data types        │
-                │  - Normalize categories  │
-                │  - Validate medical data │
-                │  - Parse dates           │
-                └──────────────┬───────────┘
-                               │
-                               ▼
-                ┌──────────────────────────┐
-                │  Feature Engineering     │
-                │  - Recalculate BMI       │
-                │  - Extract BP metrics    │
-                └──────────────┬───────────┘
-                               │
-                               ▼
-                ┌──────────────────────────┐
-                │  Outlier Handling        │
-                │  - IQR on billing        │
-                └──────────────┬───────────┘
-                               │
-                               ▼
-                ┌──────────────────────────┐
-                │  Clean, ML-Ready Dataset │
-                └──────────────────────────┘
+- Data type enforcement
 
-## Data Cleaning Pipeline
-### Phase 1 — Data Audit
+- Column naming standardization
 
-- Performed comprehensive validation:
+**2️⃣ Data Profiling**
 
-- Null counts & percentages
+- Understands dataset structure and anomalies.
 
-- Empty string detection
+- Null analysis
 
-- Whitespace validation
-
-- Mixed dtype inspection
-
-- Non-numeric detection
-
-- Categorical variation analysis
-
-- Date format validation
+- Distribution analysis
 
 - Duplicate detection
 
-- Out-of-range medical values
+**3️⃣ Validation Rules**
 
-Custom `data_audit()` function generates structured dataset diagnostics.
+Applies business logic rules.
 
-## Phase 2 — Cleaning & Standardization
+- Age range validation (0–120)
 
-1️⃣ **Standardize Missing Values**
+- Height range validation (100–250 cm)
 
-Replaced invalid placeholders:
+- Weight validation (30–300 kg)
 
-`"", "unknown", "invalid", "N/A"`
+- Heart rate validation (30–220 bpm)
 
-- Converted to NaN
+- Cholesterol validation (100–400 mg/dL)
 
-2️⃣ **Remove Duplicate Patients**
+- Systolic BP validtaion (70-250)
 
-`drop_duplicates(subset="Patient_ID")`
+- Diastolic BP validation (40-150)
 
-3️⃣ **Normalize String Columns**
+- Date logic validation (Discharge ≥ Admission)
 
-- Trim whitespace
+- Category mapping consistency
 
-- Convert to lowercase
 
-- Standardize categorical labels
+**4️⃣ Data Cleaning**
 
-4️⃣ **Fix Data Types**
+- Corrects detected issues.
 
-Safe numeric conversion using:
+- Missing value treatment (Median for numeric, Mode for categorical)
 
-`pd.to_numeric(errors="coerce")`
+- Standardize categorical fields
 
-5️⃣ **Medical Range Validation**
+- Parse mixed date formats
 
-| Field        | Valid Range   |
-| ------------ | ------------- |
-| Age          | 0–120         |
-| Height       | 100–250 cm    |
-| Weight       | 30–300 kg     |
-| Heart Rate   | 30–220 bpm    |
-| Cholesterol  | 100–400 mg/dL |
-| Systolic BP  | 70–250        |
-| Diastolic BP | 40–150        |
+- Strip whitespace
 
-Invalid values → converted to `NaN`
+- Remove duplicates
 
-6️⃣ **Date Parsing & Logical Validation**
 
-- Mixed format handling
+**5️⃣ Outlier Handling**
 
-- Invalid date coercion
+- Uses IQR-based filtering for financial outliers.
 
-- Ensured Discharge ≥ Admission
+- Billing amount IQR filtering
+  
 
-7️⃣ **Feature Engineering**
+**6️⃣ Feature Engineering**
+
+- Derives reliable medical metrics.
 
 - Recalculated BMI from height & weight
 
 - Split Blood Pressure into Systolic/Diastolic
 
-8️⃣ **Missing Value Imputation**
-| Type        | Strategy |
-| ----------- | -------- |
-| Numeric     | Median   |
-| Categorical | Mode     |
 
-9️⃣ **Outlier Handling (IQR Method)**
+**7️⃣ Final Data Validation**
 
-Applied IQR filtering to:
+- Ensures data integrity before downstream usage.
 
-Billing_Amount
+- No impossible medical values
 
-## Removed extreme financial outliers.
+- Temporal consistency validation
 
-**Final Dataset Quality Checks**
+- No duplicate Patient_ID
 
-- `df.describe()`
+- Schema consistency
 
-- `df.info()`
+## Key Data Engineering Concepts Demonstrated
 
-- Null validation
+- Data lifecycle design
 
-- Shape verification
+- Schema enforcement
 
-- Statistical distribution inspection
+- Data profiling techniques
 
-## Technical Stack
+- Business rule validation
+
+- Handling mixed data types
+
+- Outlier detection using IQR
+
+- Feature engineering best practices
+
+- Final quality gating
+
+- Clean ML-ready dataset preparation
+
+
+## Missing Value Strategy
+
+| Data Type                              | Strategy                           |
+| -------------------------------------- | ---------------------------------- |
+| Numeric (Age, Heart_Rate, Cholesterol) | Median                             |
+| Categorical (Gender, Diabetes)         | Mode                               |
+| Out-of-range values                    | Converted to NaN before imputation |
+
+
+## Technologies Used
 
 - Python
 
@@ -248,21 +251,48 @@ Billing_Amount
 
 - Schema Consistency Debugging
 
-## Recommended Repository Structure
+## Project Structure
 
 healthcare-data-cleaning/
 │
-├── data/
-│   └── Healthcare_dataset.csv
-│
-├── notebooks/
-│   └── healthcare_cleaning.ipynb
-│
-├── src/
-│   └── cleaning_pipeline.py
-│
+├── messy_healthcare_dataset_150k.csv
+├── data_cleaning_pipeline.py
 ├── README.md
-└── requirements.txt
+└── architecture.png
+
+**Dataset**
+
+Input File
+
+[Healthcare_Dataset.csv](https://github.com/Devi27-create/Healthcare-Data-Cleaning-Validation-Pipeline/blob/main/Healthcare_Dataset.csv)
+
+**How to Run**
+
+pip install pandas
+pip install numpy
+
+import pandas as pd
+
+df = pd.read_csv("messy_healthcare_dataset_150k.csv")
+
+Run the cleaning pipeline script to generate the cleaned dataset.
+
+## Output
+
+Final dataset characteristics:
+
+- Cleaned & standardized
+
+- Validated medical ranges
+
+- Outliers removed
+
+- No duplicate patients
+
+-  Proper date consistency
+
+-  ML-ready format
+
 
 ## Future Improvements
 
@@ -279,6 +309,7 @@ healthcare-data-cleaning/
 - CI/CD integration
 
 - Performance optimization for 1M+ rows
+
 
 ## Real-World Application
 
