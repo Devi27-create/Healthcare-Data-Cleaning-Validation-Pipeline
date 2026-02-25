@@ -269,6 +269,7 @@ Input File
 **How to Run**
 
 `pip install pandas`
+
 `pip install numpy`
 
 `import pandas as pd`
@@ -289,9 +290,9 @@ Final dataset characteristics:
 
 - No duplicate patients
 
--  Proper date consistency
+- Proper date consistency
 
--  ML-ready format
+- ML-ready format
 
 
 ## Future Improvements
