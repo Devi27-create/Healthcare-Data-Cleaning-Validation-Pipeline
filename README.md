@@ -256,13 +256,14 @@ Applies business logic rules.
 healthcare-data-cleaning/
 │
 ├── messy_healthcare_dataset_150k.csv
+├── healthcare_cleaned_data.csv
 ├── data_cleaning_pipeline.py
 ├── README.md
 └── architecture.png
 
 **Dataset**
 
-Input File
+Raw File
 
 [Healthcare_Dataset.csv](https://github.com/Devi27-create/Healthcare-Data-Cleaning-Validation-Pipeline/blob/main/Healthcare_Dataset.csv)
 
