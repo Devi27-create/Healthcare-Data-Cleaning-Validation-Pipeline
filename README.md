@@ -34,21 +34,21 @@ Healthcare Data Cleaning Architecture
 ## Pipeline Flow
 
 Data Ingestion
-      ↓
+      ⬇️
 Schema Validation
-      ↓
+      ⬇️
 Data Profiling
-      ↓
+      ⬇️
 Validation Rules
-      ↓
+      ⬇️
 Data Cleaning
-      ↓
+      ⬇️
 Outlier Handling
-      ↓
+      ⬇️
 Feature Engineering
-      ↓
+      ⬇️
 Final Data Validation
-      ↓
+      ⬇️
 Analytics & ML Ready Dataset
 
 
