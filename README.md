@@ -28,7 +28,7 @@ This project builds a structured, multi-phase cleaning architecture to transform
 
 Healthcare Data Cleaning Architecture
 
-[![Diagram](https://github.com/Devi27-create/Healthcare-Data-Cleaning-Validation-Pipeline/blob/main/Healthcare%20Architecture.drawio.png)
+![Diagram](https://github.com/Devi27-create/Healthcare-Data-Cleaning-Validation-Pipeline/blob/main/Healthcare%20Architecture.drawio.png)
 
 
 ## Pipeline Flow
