@@ -268,12 +268,12 @@ Input File
 
 **How to Run**
 
-pip install pandas
-pip install numpy
+`pip install pandas`
+`pip install numpy`
 
-import pandas as pd
+`import pandas as pd`
 
-df = pd.read_csv("messy_healthcare_dataset_150k.csv")
+`df = pd.read_csv("messy_healthcare_dataset_150k.csv")`
 
 Run the cleaning pipeline script to generate the cleaned dataset.
 
