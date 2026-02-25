@@ -139,7 +139,7 @@ Applies business logic rules.
 
 - Cholesterol validation (100–400 mg/dL)
 
-- Systolic BP validtaion (70-250)
+- Systolic BP validation (70-250)
 
 - Diastolic BP validation (40-150)
 
